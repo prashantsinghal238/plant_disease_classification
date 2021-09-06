@@ -4,7 +4,7 @@ from flask import Flask, redirect, url_for, request, render_template
 from werkzeug.utils import secure_filename
 # from tensorflow.keras.preprocessing import image
 # from keras.models import load_model
-from keras.models import model_from_json
+#from keras.models import model_from_json
 app = Flask(__name__)
 potato_labels = ['Early blight','Late blight','Healthy','Bacterial','Black heart','Black scurf','Common scab','Septoria leaf']
 tomato_labels = ['Bacterial spot','Early blight','Late blight','Leaf mold','Septoria leaf spot','Spider mites two-spotted spider mite','Target spot','Yellow leaf curl virus','Mosaic virus','Healthy']
