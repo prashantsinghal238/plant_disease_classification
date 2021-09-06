@@ -111,5 +111,4 @@ def upload():
         result=preds
         return "Your "+ str(crop)+ " is affected with "+str(result) 
     return None
-if __name__ == '__main__':
-    app.run(debug=True)
+app.run()
