@@ -1,16 +1,11 @@
-from __future__ import division, print_function
-import sys
 import os
-import re
 import numpy as np
 from flask import Flask, redirect, url_for, request, render_template
 from werkzeug.utils import secure_filename
 from tensorflow.keras.preprocessing import image
 from keras.models import load_model
 from keras.models import model_from_json
-#from flask_ngrok import run_with_ngrok
 app = Flask(__name__)
-#run_with_ngrok(app)
 potato_labels = ['Early blight','Late blight','Healthy','Bacterial','Black heart','Black scurf','Common scab','Septoria leaf']
 tomato_labels = ['Bacterial spot','Early blight','Late blight','Leaf mold','Septoria leaf spot','Spider mites two-spotted spider mite','Target spot','Yellow leaf curl virus','Mosaic virus','Healthy']
 wheat_labels = ['Healthy','Leaf rust','Stem rust']
@@ -18,10 +13,8 @@ rice_labels = ['Bacterial leaf blight','Brown spot','Leaf smut']
 guava_labels = ['Canker','Dot','Mummification','Rust']
 path=os.path.dirname(__file__)
 TARGET_SIZE=(64,64)
-
 def predict_disease(img_path,label):
   model_dir = path
-  print(model_dir)
   if label == "tomato":
     model_json_path = model_dir+"/"+label+"_model.json"
     model_h5_path = model_dir+"/"+label+"_model.h5"
@@ -33,11 +26,9 @@ def predict_disease(img_path,label):
     loaded_model_json = json_file.read()
     json_file.close()
     model = model_from_json(loaded_model_json)
-    # load weights into new model
     model.load_weights(model_h5_path)
     p = model.predict(img/255.0)
     v = np.argmax(p)
-
   elif label == "potato":
     model_json_path = model_dir+"/"+label+"_model.json"
     model_h5_path = model_dir+"/"+label+"_model.h5"
@@ -49,7 +40,6 @@ def predict_disease(img_path,label):
     loaded_model_json = json_file.read()
     json_file.close()
     model = model_from_json(loaded_model_json)
-    # load weights into new model
     model.load_weights(model_h5_path)
     p = model.predict(img/255.0)
     v = np.argmax(p)
@@ -66,7 +56,6 @@ def predict_disease(img_path,label):
     loaded_model_json = json_file.read()
     json_file.close()
     model = model_from_json(loaded_model_json)
-    # load weights into new model
     model.load_weights(model_h5_path)
     p = model.predict(img/255.0)
     v = np.argmax(p)
@@ -83,7 +72,6 @@ def predict_disease(img_path,label):
     loaded_model_json = json_file.read()
     json_file.close()
     model = model_from_json(loaded_model_json)
-    # load weights into new model
     model.load_weights(model_h5_path)
     p = model.predict(img/255.0)
     v = np.argmax(p)
@@ -100,15 +88,11 @@ def predict_disease(img_path,label):
     loaded_model_json = json_file.read()
     json_file.close()
     model = model_from_json(loaded_model_json)
-    # load weights into new model
     model.load_weights(model_h5_path)
     p = model.predict(img/255.0)
     v = np.argmax(p)
-
   else:
-    print("Invalid Entry")
-
-  # disease_class_labels = crop_disease_train_generator.class_indices
+    return "Invalid Entry"
   k = disease_class_labels[v]
   result = str(k)+" : "+str(round(p[0][v]*100,2))+" %"
   return result
@@ -128,4 +112,4 @@ def upload():
         return "Your "+ str(crop)+ " is affected with "+str(result) 
     return None
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
