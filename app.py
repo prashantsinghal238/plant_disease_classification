@@ -8,9 +8,9 @@ from werkzeug.utils import secure_filename
 from tensorflow.keras.preprocessing import image
 from keras.models import load_model
 from keras.models import model_from_json
-from flask_ngrok import run_with_ngrok
+#from flask_ngrok import run_with_ngrok
 app = Flask(__name__)
-run_with_ngrok(app)
+#run_with_ngrok(app)
 potato_labels = ['Early blight','Late blight','Healthy','Bacterial','Black heart','Black scurf','Common scab','Septoria leaf']
 tomato_labels = ['Bacterial spot','Early blight','Late blight','Leaf mold','Septoria leaf spot','Spider mites two-spotted spider mite','Target spot','Yellow leaf curl virus','Mosaic virus','Healthy']
 wheat_labels = ['Healthy','Leaf rust','Stem rust']
