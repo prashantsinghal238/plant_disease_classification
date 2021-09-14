@@ -95,7 +95,7 @@ def predict_disease(img_path,label):
   #   return "Invalid Entry"
   # k = disease_class_labels[v]
   # result = str(k)+" : "+str(round(p[0][v]*100,2))+" %"
-  return "kam bol chl"
+  return "0"
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
@@ -109,7 +109,7 @@ def upload():
         f.save(file_path)
         preds = predict_disease(file_path,crop)
         result=preds
-        return "Your "+ str(crop)+ " is affected with "+str(result) 
+        return "Your "+ str(crop)+ " is affected with "+str("___________") 
     return None
 if __name__ == "__main__":
     app.run(debug=True)
